@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>لوحة التحكم | درسي</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    body{background:var(--cream)}
+    .admin-wrap{max-width:640px;margin:0 auto;padding:60px 20px 100px}
+    .login-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 32px;text-align:center;margin-top:70px}
+    .login-card h2{margin:0 0 6px}
+    .login-card input{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;margin:16px 0;font-size:14px;text-align:center;box-sizing:border-box}
+    .login-card button{width:100%}
+    .admin-section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px}
+    .admin-section h3{margin:0 0 10px;font-size:15px}
+    .admin-section p{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 8px}
+    .sub-item{border-bottom:1px solid var(--line);padding:12px 0;font-size:13px}
+    .sub-item:last-child{border-bottom:0}
+    .tag{display:inline-block;background:#e6f1dc;color:var(--green);font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-inline-start:6px}
+    .tag.warn{background:#fdeceb;color:#c0392b}
+    .admin-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .admin-top h2{margin:0}
+    .logout-btn{background:transparent;color:var(--muted);font-size:12px;text-decoration:underline;padding:0}
+    .wallet-line{font-size:16px;font-weight:700;direction:ltr;text-align:right}
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div id="loginBox" class="login-card">
+      <h2>دخول الأدمن</h2>
+      <p style="color:var(--muted);font-size:13px">الصفحة دي ليك انت بس.</p>
+      <input type="password" id="adminPasswordInput" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')tryAdminLogin()">
+      <button class="primary" onclick="tryAdminLogin()">دخول</button>
+      <p id="loginError" style="color:#c0392b;font-size:12px;display:none;margin-top:10px">كلمة المرور غلط</p>
+    </div>
+
+    <div id="dashboard" style="display:none">
+      <div class="admin-top">
+        <h2>لوحة تحكم درسي</h2>
+        <button class="logout-btn" onclick="adminLogout()">خروج</button>
+      </div>
+
+      <div class="admin-section">
+        <h3>🛡️ وصولك الكامل للموقع</h3>
+        <p>دلوقتي أي وقت تفتح فيه الموقع (بنفس المتصفح ده) هتشوف كل حاجة متاحة تلقائيًا — من غير ما تعمل تسجيل: قائمة المدرسين، المحادثات من غير حد أقصى، وملاحظات التقدم. هيظهرلك شريط بنفسجي فوق الموقع يفكرك إنك في وضع الأدمن، وفيه زرار تقدر تعاين بيه الموقع "كزائر عادي" في أي وقت وترجع تاني بضغطة واحدة.</p>
+        <p><a href="../ar/index.html">افتح الموقع (عربي) ←</a> &nbsp;|&nbsp; <a href="../en/index.html">Open site (English) →</a></p>
+      </div>
+
+      <div class="admin-section">
+        <h3>🛠 وضع التجربة (وصول كامل)</h3>
+        <p>إنت داخل كأدمن، يعني لما تفتح الموقع هتلاقي لوحة تجربة صغيرة تحت الشمال. منها تقدر تجرب <b>أي حاجة</b> من غير ما تملأ فورم كل مرة: تبدّل بين طالب/مدرس، تبدّل بين الخطط (مجاني/بلس/برو)، تقفل وتفتح البوابة، وتحمّل ٣ مدرسين تجريبيين عشان تجرب الملفات والمحادثات وحد المحادثة الواحدة.</p>
+        <p style="color:#b8860b"><b>مهم:</b> المدرسين التجريبيين دول بيظهروا ليك انت بس على الجهاز ده. أي زائر حقيقي مش هيشوفهم ولا هيشوف اللوحة.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <a href="../ar/index.html"><button class="primary">افتح الموقع بالعربي 🛠</button></a>
+          <a href="../en/index.html"><button class="secondary">Open site in English 🛠</button></a>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h3>📧 طلبات الانضمام الحقيقية</h3>
+        <p>أي طلب انضمام حقيقي من أي زائر (طالب أو مدرس) بييجيلك على إيميلك مباشرة أول ما تفعّل Web3Forms في ملف <code>config.js</code>. افتح بريدك الإلكتروني عشان تشوفهم وترد عليهم.</p>
+      </div>
+
+      <div class="admin-section">
+        <h3>💳 رقم المحفظة اللي هتستقبل عليه الدفع</h3>
+        <p class="wallet-line" id="walletDisplay">—</p>
+        <p>غيّره من ملف <code>assets/js/config.js</code> — المتغير اسمه <code>WALLET_INFO</code>.</p>
+      </div>
+
+      <div class="admin-section">
+        <h3>🧪 طلبات تجريبية من المتصفح ده بس</h3>
+        <p>دي <b>مش</b> كل طلبات المستخدمين الحقيقيين — دي بس اللي حصلت من نفس المتصفح والجهاز ده، للتجربة. أي طلب من زائر حقيقي على جهازه هو هيوصلك بالإيميل مش هنا.</p>
+        <div id="localSubmissionsList"><p style="color:var(--muted);font-size:12px">مفيش طلبات تجريبية لسه.</p></div>
+        <button class="secondary" style="margin-top:12px" onclick="clearLocalSubmissions()">امسح القائمة دي</button>
+      </div>
+    </div>
+  </div>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>
